@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
-import { HightLightDirective } from '../../../directives/hight-light.directive';
+import { HightLightDirective } from '../directives/hight-light.directive';
 import { RolePipe } from '../pipes/role.pipe';
 import { NgFor,NgIf } from '@angular/common';
 
@@ -34,5 +34,11 @@ export class UserListComponent implements OnInit {
     return roles[Math.floor(Math.random() * roles.length)];
   }
 
+ 
+
+  view() {
+    this.count++;
+    console.log(`Role : ${this.count}`);
+  }
 
 }

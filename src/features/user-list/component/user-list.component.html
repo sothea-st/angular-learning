@@ -2,14 +2,13 @@
   <h2>User Management</h2>
   <div *ngIf="users.length > 0; else loading">
     <div class="user-card" 
-         *ngFor="let user of users; let i = index" 
-         [appHightLight]="user.role ?? ''"
+         *ngFor="let user of users; let i = index"
           >
       <h4>{{ i + 1 }}</h4>  <!-- Show individual count -->
       <h4>{{ user.id }}</h4>
       <h3>{{ user.name }}</h3>
       <p>Email: {{ user.email }}</p>
-      <p>Role: {{ user.role ?? '' | roleFormat }}</p>
+      <p>Role: {{ user.role ?? '' }}</p>
     </div>
   </div>
 

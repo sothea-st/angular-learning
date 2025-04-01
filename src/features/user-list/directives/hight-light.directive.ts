@@ -2,7 +2,7 @@ import { Directive, OnInit, ElementRef, Input } from '@angular/core';
 
 @Directive({
   selector: '[appHightLight]',
-  standalone:true
+  standalone: true
 })
 export class HightLightDirective implements OnInit {
 

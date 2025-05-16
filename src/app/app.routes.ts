@@ -1,9 +1,17 @@
-import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { AboutComponent } from './pages/about/about.component';
+// src/app/app-routing.module.ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '',    component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: '**',  redirectTo: '' },
+  {
+    path: 'contact',
+    loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule)
+  },
+  { path: '**', redirectTo: 'contact' }
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

@@ -1,0 +1,21 @@
+// @tailwind base;
+
+@layer base {
+     body {
+          font-family: 'Roboto', sans-serif;
+          background-color: #f9fafb;
+          color: #1f2937;
+          font-weight: 400;
+
+          p {
+               font-size: 19px;
+               line-height: 1.6;
+          }
+
+          h1,
+          h2,
+          h3 {
+               font-weight: 600;
+          }
+     }
+}

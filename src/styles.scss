@@ -1,3 +1,5 @@
+// styles.scss (global for whole Angular app)
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './styles/index'

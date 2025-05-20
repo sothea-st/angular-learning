@@ -1,0 +1,33 @@
+<div class="btn-track">
+
+	<button 
+		class="track-btn" 
+		(click)="fetchUser()" 
+		[disabled]="loading" 
+		[ngStyle]="{
+			'background-color': loading ? '#0056b3' : '#007bff',
+			'cursor': loading ? 'not-allowed' : 'pointer'
+			}"
+	>
+		{{ loading ? 'Tracking...' : '🔍 Track User' }}
+	</button>
+</div>
+<div class="pd">
+	<div class="home" *ngIf="showHome">
+		<!-- Loading Spinner -->
+		<div *ngIf="loading" class="loading-container">
+			<div class="spinner"></div>
+			<p>Loading ...</p>
+		</div>
+
+		<!-- User Data Display -->
+		<div *ngIf="user && !loading" class="user-data">
+			<p class="post-count">📦 Total : {{ user.totalUrlPost }}</p>
+			<ul class="post-list">
+				<li *ngFor="let post of user.urlPost; index as i">
+					{{ i + 1 }}. <a [href]="post.url" target="_blank">{{ post.url }}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

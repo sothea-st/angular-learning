@@ -1,5 +1,4 @@
 <div class="btn-track">
-
 	<button 
 		class="track-btn" 
 		(click)="fetchUser()" 
@@ -21,11 +20,25 @@
 		</div>
 
 		<!-- User Data Display -->
+		<!-- <div *ngIf="user && !loading" class="user-data">
+			<p class="post-count">📦 Total : {{ user.totalUrlPost }}</p>
+			<ul class="post-list">
+				<li *ngFor="let post of user.urlPost; index as i">
+					{{ i + 1 }}. <a [href]="'https://www.facebook.com/'+post.account_name" target="_blank">{{ post.account_name }}</a>
+				</li>
+			</ul>
+		</div> -->
 		<div *ngIf="user && !loading" class="user-data">
 			<p class="post-count">📦 Total : {{ user.totalUrlPost }}</p>
 			<ul class="post-list">
 				<li *ngFor="let post of user.urlPost; index as i">
-					{{ i + 1 }}. <a [href]="post.url" target="_blank">{{ post.url }}</a>
+					{{ i + 1 }}. <a [href]="'https://www.facebook.com/'+post.account_name" target="_blank">{{ post.account_name }}</a>
+					<a class="post" [ngStyle]="{
+						'color': post.posts === 'NO new post found today.' ? 'gray' : 'green'
+					}"
+					[href]="post.posts"
+					target="_blank"
+					>( {{ post.posts }} )</a>
 				</li>
 			</ul>
 		</div>

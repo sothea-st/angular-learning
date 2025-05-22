@@ -15,6 +15,7 @@ export class HomeComponentComponent {
   loading: boolean = false;
   showHome: boolean = false;
 
+
   constructor(public userService: UserService) { }
 
   fetchUser() {
@@ -36,3 +37,6 @@ export class HomeComponentComponent {
   }
 
 }
+
+
+

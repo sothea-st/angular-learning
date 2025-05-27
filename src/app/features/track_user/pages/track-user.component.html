@@ -27,13 +27,6 @@
 					{{ i + 1 }}. 
 					<span>{{ post.account_name }}</span>
 
-					<!-- <a class="post" [ngStyle]="{
-						'color': post.posts === 'No new post found today.' ? 'red' : 'green'
-					}"
-					[href]="post.posts"
-					target="_blank"
-					>(  {{ post.posts }} )</a> -->
-
 					<span *ngIf="post.status !== '00'" class="post" [ngStyle]="{
 						'color': post.posts === 'No new post found today.' ? 'red' : 'green'
 					}"
@@ -48,5 +41,5 @@
 	</div>
 </div>
 <div class="bottom">
-	<button class="btn-add">➕ Add Url</button>
+	<button class="btn-add" (click)="addProfileLink()">➕ Add Profile Link</button>
 </div>

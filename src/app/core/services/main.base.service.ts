@@ -3,15 +3,15 @@
 import { Environment } from "../environment/environment";
 export abstract class MainBaseService {
   
-  env: Environment = Environment.DEV;
+  private env: Environment = Environment.DEV;
 
-  baseUrl!: string;
+  private baseUrl!: string;
 
   constructor(private routeName: string) {
     this.initEnv();
   }
 
-  initEnv(): void {
+  private initEnv(): void {
     switch (this.env) {
       case Environment.DEV: { // developer
         this.baseUrl = 'http://localhost:8791/api/';

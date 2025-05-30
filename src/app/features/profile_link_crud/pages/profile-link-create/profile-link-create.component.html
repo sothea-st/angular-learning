@@ -1,3 +1,64 @@
-<div class="container">
-     <p>profile-link-create works!</p>
-</div>
+<section class="dark:bg-gray-900 p-5 sm:p-5">
+     <div class="mx-auto w-5/6 px-4 lg:px-12">
+          <div class="flex justify-start">
+               <div
+                    class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0 mb-3">
+                    <button type="button" class="flex px-4 py-2 text-sm font-medium 
+                              text-gray-900 focus:outline-none bg-white rounded-lg border 
+                              border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 
+                              focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 
+                              dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                         (click)="onBack()">
+                         <svg class="w-5 h-5 text-gray-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                              width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                   stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
+                         </svg>
+                         <span>Back</span>
+                    </button>
+               </div>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden p-5">
+               <div class="flex justify-end">
+                    <button type="button" (click)="onAddLink()" *ngIf="isCheck">
+                         <svg class="w-8 h-8 text-blue-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                              width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                   stroke-width="2"
+                                   d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                         </svg>
+                    </button>
+               </div>
+               <form>
+                    <div *ngFor="let item of profileLinkRequests; let i = index" class="mt-3">
+                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                              Facebook URL {{ i + 1 }}
+                         </label>
+                         <div class="items-center">
+                              <input [(ngModel)]="item.profileLink" [name]="'profileLink' + i" type="url"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="www.facebook.com" required />
+                              <div class="flex justify-end">
+                                   <span 
+                                        (click)="onRemoveLink(i)" 
+                                        *ngIf="profileLinkRequests.length > 1"
+                                        class="italic text-red-600 hover:underline cursor-pointer">Remove</span>
+                              </div>
+                         </div>
+                    </div>
+                 
+                    <div class="flex justify-end mt-7">
+                         <button 
+                              (click)="onCreate()"
+                              [disabled]="!isLoading"
+                              type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+                              focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
+                              text-sm w-full sm:w-auto px-7 py-2.5 text-center">
+                              Save
+                         </button>
+                    </div>
+               </form>
+          </div>
+     </div>
+</section>

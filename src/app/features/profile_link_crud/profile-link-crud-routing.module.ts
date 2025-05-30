@@ -11,6 +11,10 @@ const routes:Routes = [
      {
           path: 'create',
           component: ProfileLinkCreateComponent
+     },
+       {
+          path: 'create/:id',
+          component: ProfileLinkCreateComponent
      }
 ];
 

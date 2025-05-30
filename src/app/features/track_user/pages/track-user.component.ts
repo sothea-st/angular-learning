@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { TrackUserService } from '../services/track-user.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router'; // Router use for navigate to method
+import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 @Component({
   selector: 'app-track-user',
-  imports: [CommonModule],
+  imports: [CommonModule,LoadingComponent],
   templateUrl: './track-user.component.html',
   styleUrl: './track-user.component.scss'
 })

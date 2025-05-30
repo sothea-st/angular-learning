@@ -1,4 +1,6 @@
 export interface ProfileLinkModel {
+	length: number
+	slice(start: number, end: number): any[]
      status: number,
      msg: string,
      data: ProfileLinkDetail[],
@@ -20,3 +22,8 @@ interface ProfileLinkDetail {
      id: number,
      profileLink: string
 }
+
+export interface ProfileLinkRequest {
+     profileLink: string;
+}
+

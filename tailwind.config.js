@@ -1,14 +1,14 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
   content: [
-    "./src/**/*.{html,ts}", // scan Angular components
-    "./node_modules/flowbite/**/*.js" // include flowbite if using
+    "./src/**/*.{html,ts}",
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {},
   },
   plugins: [
-    require('flowbite/plugin'), // optional, if using flowbite
+    require('flowbite/plugin')
   ],
 }
 

@@ -41,6 +41,7 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/flowbite/dist/flowbite.min.js"
             ]
           },
           "configurations": {
@@ -102,6 +103,7 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/flowbite/dist/flowbite.min.js"
             ]
           }
         }

@@ -33,98 +33,23 @@
                </div>
           </div>
 
-          <!-- Start coding here -->
-          <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-               <div
-                    class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-
-                    <!-- Search input -->
-                    <div class="w-full md:w-1/5">
-                         <form class="flex items-center">
-                              <label for="simple-search" class="sr-only">Search</label>
-                              <div class="relative w-full">
-                                   <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                             <path fill-rule="evenodd"
-                                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                  clip-rule="evenodd" />
-                                        </svg>
-                                   </div>
-                                   <input type="text" id="simple-search" class="border border-gray-300 text-gray-900 text-sm rounded-lg 
-            focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300
-            block w-full pl-10 p-2 
-            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-            dark:focus:ring-blue-300 dark:focus:border-blue-300" placeholder="Search" required />
-                              </div>
-                         </form>
-                    </div>
-
-                    <!-- Rows per page selector -->
-                    <div class="flex w-full justify-end items-center">
-                         <label for="rowsPerPage">Show</label>
-                         <select id="rowsPerPage" class="ml-2 border border-gray-300 rounded-lg text-gray-900 text-sm p-2 w-[75px]">
-                              <option *ngFor="let option of pageSizeOptions" [value]="option.value">{{ option.label }}
-                              </option>
-                         </select>
-                   
-                    </div>
-               </div>
-
-               <div class="overflow-x-auto">
-                    <table class="w-full text-md text-left text-gray-500 dark:text-gray-400">
-                         <thead class="text-md text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                              <tr>
-                                   <th scope="col" class="px-2 py-3 text-center">#</th>
-                                   <th scope="col" class="px-4 py-3">Profile Link</th>
-                                   <th scope="col" class="py-3 w-[100px] text-left">
-                                        <span>Actions</span>
-                                   </th>
-                              </tr>
-                         </thead>
-                         <tbody *ngIf="isLoading">
-                              <tr>
-                                   <td colspan="100%" class="text-center py-4">
-                                        <app-loading [isLoading]="isLoading"></app-loading>
-                                   </td>
-                              </tr>
-                         </tbody>
-                         <tbody *ngIf="profileLinkModel">
-                              <tr *ngFor="let val of profileLinkModel.data; let i = index"
-                                   class="border-b dark:border-gray-700 hover:bg-gray-100">
-                                   <th scope="row"
-                                        class="font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
-                                        {{ i + 1 }}
-                                   </th>
-                                   <td class="px-4 py-3 text-gray-900">
-                                        {{ val.profileLink }}
-                                   </td>
-                                   <td class="py-3 flex space-x-2">
-                                        <svg (click)="onEdit(val.id)" class="w-6 h-7 cursor-pointer text-blue-500"
-                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                  stroke-width="2"
-                                                  d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
-                                        </svg>
-                                        <svg (click)="onDelete(val.id)" class="w-6 h-6 cursor-pointer text-red-500"
-                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                  stroke-width="2"
-                                                  d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
-                                        </svg>
-
-
-                                   </td>
-                              </tr>
-                         </tbody>
-
-                    </table>
-               </div>
-
-               <app-pagination
-                    [totalLength]="totalLength"
-               ></app-pagination>
-
-          </div>
+          <app-datatable 
+               *ngIf="profileLinkModel"
+               [columns]="columns" 
+               [data]="profileLinkModel.data"
+               [isLoading]="isLoading" 
+               [totalLength]="profileLinkModel.count" 
+               [pageSize]="profileLinkService.pageSize"
+               (onPage)="onRead($event)" 
+               (onSelectPerPage)="onChangePerPage($event)">
+               <ng-template #rowTemplate let-item let-i="index">
+                    <td class="text-center text-gray-900">{{i+1}}</td>
+                    <td class="px-4 py-3 text-gray-900">{{ item.profileLink }}</td>
+                    <td class="py-3 flex space-x-2">
+                         <app-edit-icon [id]="item.id" (edit)="onEdit($event)"></app-edit-icon>
+                         <app-delete-icon [id]="item.id" (delete)="onDelete($event)"></app-delete-icon>
+                    </td>
+               </ng-template>
+          </app-datatable>
      </div>
 </section>

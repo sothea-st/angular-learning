@@ -1,6 +1,6 @@
 
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 @Component({
 	selector: 'app-pagination',
 	imports: [
@@ -9,24 +9,29 @@ import { Component, Input, Output, EventEmitter, OnChanges, OnInit } from '@angu
 	templateUrl: './pagination.component.html',
 	styleUrl: './pagination.component.scss'
 })
-export class PaginationComponent {
-	// arrPagination: Array<number> = Array(79);
+export class PaginationComponent implements OnChanges {
+
 	@Input() totalLength!: number;
+	@Input() pageSize!: number;
+	@Output() onClickPage: EventEmitter<any> = new EventEmitter<any>();
 
 	totalPage: number = 0;
-	perPage: number = 10;
+
 	currentPage: number = 1;
 	arr: Array<string> = [];
 
-	ngOnInit(): void {
-		this.totalPage = Math.ceil(this.totalLength / this.perPage);
+
+	ngOnChanges(): void {
+		this.totalPage = Math.ceil(this.totalLength / this.pageSize);
 		this.arr = this.generatePagination(this.currentPage, this.totalPage);
 	}
+
 
 	onPageClick(val: string): void {
 		if (val !== '...') {
 			this.currentPage = +val;
 			this.arr = this.generatePagination(this.currentPage, this.totalPage);
+			this.onClickPage.emit(val);
 		}
 	}
 
@@ -72,6 +77,7 @@ export class PaginationComponent {
 		if (this.currentPage > 1) {
 			this.currentPage--;
 			this.arr = this.generatePagination(this.currentPage, this.totalPage);
+			this.onClickPage.emit(this.currentPage);
 		}
 	}
 
@@ -79,15 +85,16 @@ export class PaginationComponent {
 		if (this.currentPage < this.totalPage) {
 			this.currentPage++;
 			this.arr = this.generatePagination(this.currentPage, this.totalPage);
+			this.onClickPage.emit(this.currentPage);
 		}
 	}
 
 	get startItem(): number {
-		return (this.currentPage - 1) * this.perPage + 1;
+		return (this.currentPage - 1) * this.pageSize + 1;
 	}
 
 	get endItem(): number {
-		const end = this.currentPage * this.perPage;
+		const end = this.currentPage * this.pageSize;
 		return end > this.totalLength ? this.totalLength : end;
 	}
 

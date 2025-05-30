@@ -1,6 +1,4 @@
 export interface ProfileLinkModel {
-	length: number
-	slice(start: number, end: number): any[]
      status: number,
      msg: string,
      data: ProfileLinkDetail[],
@@ -18,7 +16,7 @@ export interface Success {
      msg: string
 }
 
-interface ProfileLinkDetail {
+export interface ProfileLinkDetail {
      id: number,
      profileLink: string
 }

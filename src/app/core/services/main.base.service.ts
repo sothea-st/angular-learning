@@ -2,10 +2,12 @@
 
 import { Environment } from "../environment/environment";
 export abstract class MainBaseService {
-  
+
   private env: Environment = Environment.DEV;
 
   private baseUrl!: string;
+  public pageNumber: number = 1;
+  public pageSize: number = 10;
 
   constructor(private routeName: string) {
     this.initEnv();
@@ -20,7 +22,7 @@ export abstract class MainBaseService {
       case Environment.UAT: { // UAT
         this.baseUrl = 'http://localhost:8791/api/';
         break;
-      } 
+      }
       case Environment.PROD: { // Production
         this.baseUrl = 'http://localhost:8791/api/';
         break;

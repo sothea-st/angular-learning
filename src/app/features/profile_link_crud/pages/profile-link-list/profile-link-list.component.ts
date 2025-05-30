@@ -6,9 +6,12 @@ import { ProfileLinkService } from '../../services/profile-link.service';
 import { ProfileLinkModel, ProfileLinkUpdateModel } from '../../models/profile-link.model';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
+import { DatatableComponent } from '../../../../shared/components/datatable/datatable.component';
+import { EditIconComponent } from '../../../../shared/components/icons/edit-icon/edit-icon.component';
+import { DeleteIconComponent } from '../../../../shared/components/icons/delete-icon/delete-icon.component';
 @Component({
 	selector: 'app-profile-link-list',
-	imports: [MatTableModule, CommonModule, PaginationComponent, LoadingComponent],
+	imports: [MatTableModule, CommonModule, DatatableComponent,EditIconComponent,DeleteIconComponent],
 	templateUrl: './profile-link-list.component.html',
 	styleUrl: './profile-link-list.component.scss'
 })
@@ -18,37 +21,43 @@ export class ProfileLinkListComponent implements OnInit {
 	protected profileLinkUpdateModel !: ProfileLinkUpdateModel;
 
 	isLoading: boolean = true;
-	totalLength!:number;
+	
 
-	searchTerm: string = '';
-	rowsPerPage: number = 10;
-	pageSizeOptions = [
-		{ label: '10', value: 10 },
-		{ label: '25', value: 25 },
-		{ label: '50', value: 50 },
-		{ label: '100', value: 100 },
-		{ label: 'All', value: -1 }
+	columns = [
+		{ 	
+			label: 'Profile Link',
+			key: 'profileLink'
+		} 
 	];
 
 	constructor(
 		private router: Router,
 		private route: ActivatedRoute,
-		private profileLinkService: ProfileLinkService
+		protected profileLinkService: ProfileLinkService
 	) {
 
 	}
 
 	ngOnInit(): void {
-		this.onRead();
+		this.onRead(this.profileLinkService.pageNumber);
 	}
 
-	onRead(): void {
+	onRead(pageNumber: number): void {
+		this.profileLinkService.pageNumber = pageNumber;
+		this._readData();
+	}
+	
+	onChangePerPage(pageSize: number): void {
+		this.profileLinkService.pageNumber = 1;
+		this.profileLinkService.pageSize = Number(pageSize);
+		this._readData();
+	}
+
+	_readData(): void {
 		this.profileLinkService.reads().subscribe({
 			next: (data) => {
 				this.isLoading = false;
 				this.profileLinkModel = data;
-				this.totalLength = data.count;
-				// console.log(this.profileLinkModel)
 			},
 			error: (err) => {
 				console.log("error : " + err)
@@ -61,7 +70,6 @@ export class ProfileLinkListComponent implements OnInit {
 		if (confirmed) {
 			this.profileLinkService.delete(id).subscribe({
 				next: () => {
-					console.log('Deletion successful');
 					this.ngOnInit();
 				},
 				error: (err) => {
@@ -70,7 +78,6 @@ export class ProfileLinkListComponent implements OnInit {
 			});
 		}
 	}
-
 
 	onEdit(id: number): void {
 		this.router.navigate(['create', id], { relativeTo: this.route });
@@ -84,6 +91,7 @@ export class ProfileLinkListComponent implements OnInit {
 		this.router.navigate(['track-user']);
 	}
 
+	
 }
 
 

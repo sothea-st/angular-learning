@@ -34,7 +34,6 @@ export class DatatableComponent {
 		{ label: 'All', value: -1 }
 	];
 
-
 	onPageChanged(page: number): void {
 		this.onPage.emit(page);
 	}

@@ -1,47 +1,20 @@
 <section class="dark:bg-gray-900 p-5 sm:p-5">
      <div class="mx-auto w-5/6 px-4 lg:px-12">
           <div class="flex justify-between">
-               <div
-                    class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0 mb-3">
-                    <button type="button" class="flex px-4 py-2 text-sm font-medium 
-                              text-gray-900 focus:outline-none bg-white rounded-lg border 
-                              border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 
-                              focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 
-                              dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                         (click)="onBack()">
-                         <svg class="w-5 h-5 text-gray-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                              width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                   stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
-                         </svg>
-                         <span>Back</span>
-                    </button>
-               </div>
-               <div
-                    class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0 mb-3">
-                    <button (click)="addNew()" type="button" class="flex text-white bg-blue-700 hover:bg-blue-800 
-                              focus:ring-4 focus:ring-blue-300 font-medium rounded-lg -sm 
-                              me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none 
-                              dark:focus:ring-blue-800 text-sm px-4 py-2">
-                         <svg class="w-5 h-5 text-gray-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                              fill="currentColor" viewBox="0 0 18 20">
-                              <path clip-rule="evenodd" fill-rule="evenodd"
-                                   d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                         </svg>
-                         <span> Add New</span>
-                    </button>
-               </div>
+               <app-button-back (back)="onBack()"></app-button-back>
+               <app-button-add-new (addNew)="addNew()"></app-button-add-new>
           </div>
 
           <app-datatable 
-               *ngIf="profileLinkModel"
+               *ngIf="profileLinkModel" 
                [columns]="columns" 
                [data]="profileLinkModel.data"
                [isLoading]="isLoading" 
                [totalLength]="profileLinkModel.count" 
                [pageSize]="profileLinkService.pageSize"
                (onPage)="onRead($event)" 
-               (onSelectPerPage)="onChangePerPage($event)">
+               (onSelectPerPage)="onChangePerPage($event)"
+          >
                <ng-template #rowTemplate let-item let-i="index">
                     <td class="text-center text-gray-900">{{i+1}}</td>
                     <td class="px-4 py-3 text-gray-900">{{ item.profileLink }}</td>
@@ -50,6 +23,7 @@
                          <app-delete-icon [id]="item.id" (delete)="onDelete($event)"></app-delete-icon>
                     </td>
                </ng-template>
+               
           </app-datatable>
      </div>
 </section>

@@ -23,6 +23,7 @@ export class DatatableComponent {
 	@Output() delete = new EventEmitter<any>();
 	@Output() onPage = new EventEmitter<number>();
 	@Output() onSelectPerPage = new EventEmitter<number>();
+	@Output() onSearchValue = new EventEmitter<any>();
 
 	searchTerm: string = '';
 	rowsPerPage: number = 10;
@@ -42,4 +43,10 @@ export class DatatableComponent {
 		const pageSize = (event.target as HTMLSelectElement).value;
 		this.onSelectPerPage.emit(Number(pageSize));
 	}
+
+	onSearch(event: KeyboardEvent) {
+		const value = (event.target as HTMLInputElement).value;
+		this.onSearchValue.emit(value);
+	}
+
 }

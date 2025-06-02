@@ -34,6 +34,12 @@ export abstract class MainBaseService {
     return this.baseUrl + this.routeName;
   }
 
+  protected getQuery(searchValue?:string): string {
+    let search = searchValue ? "&search=" + searchValue : "";
+    const query = this.pageSize === -1 ? "" : "?pageNumber=" + this.pageNumber + "&pageSize=" + this.pageSize + search;
+    return query;
+  }
+
 
   // constructor(
   //   protected http: HttpClient,

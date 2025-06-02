@@ -14,6 +14,7 @@
                [pageSize]="profileLinkService.pageSize"
                (onPage)="onRead($event)" 
                (onSelectPerPage)="onChangePerPage($event)"
+               (onSearchValue)="onSearch($event)"
           >
                <ng-template #rowTemplate let-item let-i="index">
                     <td class="text-center text-gray-900">{{i+1}}</td>
@@ -25,6 +26,5 @@
                </ng-template>
                
           </app-datatable>
-          
      </div>
 </section>

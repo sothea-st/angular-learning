@@ -61,8 +61,14 @@ export class ProfileLinkListComponent implements OnInit {
 		this._readData();
 	}
 
-	_readData(): void {
-		this.profileLinkService.reads().subscribe({
+	onSearch(value: string){
+		setTimeout(()=> {
+			this._readData(value);
+		},1500)
+	}
+
+	_readData(searchValue?: string): void {
+		this.profileLinkService.reads(searchValue).subscribe({
 			next: (data) => {
 				this.isLoading = false;
 				this.profileLinkModel = data;

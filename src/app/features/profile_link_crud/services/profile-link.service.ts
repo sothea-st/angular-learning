@@ -11,9 +11,8 @@ export class ProfileLinkService extends MainBaseService {
           super('profileLinks');
      }
 
-     reads(): Observable<ProfileLinkModel> {
-          const query = this.pageSize === -1 ? "" : "?pageNumber="+this.pageNumber+"&pageSize="+this.pageSize;
-          return this.http.get<ProfileLinkModel>(this.getBaseUrl+query);
+     reads(searchValue?: string): Observable<ProfileLinkModel> {
+          return this.http.get<ProfileLinkModel>(this.getBaseUrl+this.getQuery(searchValue));
      }
 
      readById(id: number): Observable<ProfileLinkUpdateModel> {

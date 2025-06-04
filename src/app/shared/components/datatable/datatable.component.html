@@ -33,10 +33,10 @@
      </div>
 
      <div class="overflow-x-auto">
-          <table class="w-full text-md text-left text-gray-500 dark:text-gray-400">
-               <thead class="text-md text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table class="w-full text-md text-left text-gray-500">
+               <thead class="text-md text-gray-700 bg-gray-50">
                     <tr>
-                         <th class="px-2 py-3 text-center">#</th>
+                         <th class="w-[100px] py-3 text-center">#</th>
                          <th *ngFor="let col of columns" class="px-4 py-3">{{ col.label }}</th>
                          <th class="py-3 w-[100px] text-left">Actions</th>
                     </tr>
@@ -51,8 +51,12 @@
                </tbody>
 
                <tbody *ngIf="!isLoading">
-                    <tr *ngFor="let item of data; let i = index" class="border-b dark:border-gray-700 hover:bg-gray-100">
+                    <tr *ngFor="let item of data; let i = index" class="border-b">
                          <ng-container *ngTemplateOutlet="rowTemplate; context: { $implicit: item,index: i }"></ng-container>
+                    </tr>
+
+                    <tr *ngIf="data.length === 0" class="border-b">
+                         <td colspan="99" class="px-4 py-3 text-center text-gray-400">No data available</td>
                     </tr>
                </tbody>
 
@@ -60,7 +64,9 @@
      </div>
 
      <app-pagination 
-          [totalLength]="totalLength" [pageSize]="pageSize"
-          (onClickPage)="onPageChanged($event)"></app-pagination>
+          [totalLength]="totalLength" 
+          [pageSize]="pageSize"
+          (onClickPage)="onPageChanged($event)"
+     ></app-pagination>
 
 </div>

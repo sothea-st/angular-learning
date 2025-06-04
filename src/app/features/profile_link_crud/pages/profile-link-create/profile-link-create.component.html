@@ -37,7 +37,12 @@
                          </label>
                          <div class="items-center">
                               <input [(ngModel)]="item.profileLink" [name]="'profileLink' + i" type="url"
+                                   #profileLinkInput="ngModel"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                   [ngClass]="{
+                                        'border-red-500 focus:border-red-500 focus:ring-red-500': profileLinkInput.invalid && profileLinkInput.touched,
+                                        'border-gray-300': profileLinkInput.valid || !profileLinkInput.touched
+                                   }"
                                    placeholder="www.facebook.com" required />
                               <div class="flex justify-end">
                                    <span 

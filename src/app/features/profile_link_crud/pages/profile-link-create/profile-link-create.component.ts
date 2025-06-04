@@ -18,7 +18,7 @@ export class ProfileLinkCreateComponent implements OnInit {
 			profileLink: ''
 		}
 	];
- 
+
 	id: number = 0;
 	isLoading: boolean = true;
 	isCheck: boolean = false;
@@ -48,7 +48,14 @@ export class ProfileLinkCreateComponent implements OnInit {
 	}
 
 	onCreate(): void {
-		this.profileLinkService.create(this.id,this.profileLinkRequests).subscribe({
+		const formElements = document.querySelectorAll('input[type="url"]');
+		formElements.forEach((el) => el.dispatchEvent(new Event('blur'))); // trigger validation
+
+		const hasEmpty = this.profileLinkRequests.some(req => !req.profileLink?.trim());
+		if (hasEmpty) {
+			return; // stop submission
+		}
+		this.profileLinkService.create(this.id, this.profileLinkRequests).subscribe({
 			next: (data) => {
 				this.router.navigate(['/profile-link-crud']);
 			},

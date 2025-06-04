@@ -27,6 +27,7 @@ export class DatatableComponent {
 
 	searchTerm: string = '';
 	rowsPerPage: number = 10;
+ 
 	pageSizeOptions = [
 		{ label: '10', value: 10 },
 		{ label: '25', value: 25 },

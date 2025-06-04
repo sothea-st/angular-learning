@@ -9,6 +9,7 @@ import { EditIconComponent } from '../../../../shared/components/icons/edit-icon
 import { DeleteIconComponent } from '../../../../shared/components/icons/delete-icon/delete-icon.component';
 import { ButtonAddNewComponent } from '../../../../shared/components/buttons/button-add-new/button-add-new.component';
 import { ButtonBackComponent } from '../../../../shared/components/buttons/button-back/button-back.component';
+import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 @Component({
 	selector: 'app-profile-link-list',
 	imports: [
@@ -18,7 +19,8 @@ import { ButtonBackComponent } from '../../../../shared/components/buttons/butto
 		EditIconComponent,
 		DeleteIconComponent,
 		ButtonAddNewComponent,
-		ButtonBackComponent
+		ButtonBackComponent,
+		TruncatePipe
 	],
 	templateUrl: './profile-link-list.component.html',
 	styleUrl: './profile-link-list.component.scss'
@@ -26,16 +28,20 @@ import { ButtonBackComponent } from '../../../../shared/components/buttons/butto
 export class ProfileLinkListComponent implements OnInit {
 
 	protected profileLinkModel!: ProfileLinkModel;
-	protected profileLinkUpdateModel !: ProfileLinkUpdateModel;
-
 	isLoading: boolean = true;
-	
+	isDialog: boolean = false;
+	deleteId: number | null = null;
+
+	currentPage: number = 1;  
+	pageSize: number = 10;
+
+	index!: number;
 
 	columns = [
-		{ 	
+		{
 			label: 'Profile Link',
 			key: 'profileLink'
-		} 
+		}
 	];
 
 	constructor(
@@ -52,19 +58,22 @@ export class ProfileLinkListComponent implements OnInit {
 
 	onRead(pageNumber: number): void {
 		this.profileLinkService.pageNumber = pageNumber;
-		this._readData();
-	}
-	
-	onChangePerPage(pageSize: number): void {
-		this.profileLinkService.pageNumber = 1;
-		this.profileLinkService.pageSize = Number(pageSize);
+		this.currentPage = pageNumber;
 		this._readData();
 	}
 
-	onSearch(value: string){
-		setTimeout(()=> {
+	onChangePerPage(pageSize: number): void {
+		this.pageSize = pageSize;
+		this.currentPage = 1;
+		this.profileLinkService.reset(pageSize);
+		this._readData();
+	}
+
+	onSearch(value: string) {
+		setTimeout(() => {
+			this.profileLinkService.reset(10);
 			this._readData(value);
-		},1500)
+		}, 1500)
 	}
 
 	_readData(searchValue?: string): void {
@@ -80,11 +89,17 @@ export class ProfileLinkListComponent implements OnInit {
 	}
 
 	onDelete(id: number): void {
-		const confirmed = confirm('Are you sure you want to delete this record?');
-		if (confirmed) {
-			this.profileLinkService.delete(id).subscribe({
+		this.isDialog = !this.isDialog;
+		this.deleteId = id;
+	}
+
+	_delete(): void {
+		if (this.deleteId !== null) {
+			this.profileLinkService.delete(this.deleteId).subscribe({
 				next: () => {
 					this.ngOnInit();
+					this.isDialog = !this.isDialog;
+					this.deleteId = null;
 				},
 				error: (err) => {
 					console.error('Deletion failed', err);
@@ -103,6 +118,10 @@ export class ProfileLinkListComponent implements OnInit {
 
 	onBack(): void {
 		this.router.navigate(['track-user']);
+	}
+
+	onCloseModal(): void {
+		this.isDialog = !this.isDialog;
 	}
 
 }

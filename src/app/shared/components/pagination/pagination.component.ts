@@ -20,10 +20,10 @@ export class PaginationComponent implements OnChanges {
 	currentPage: number = 1;
 	arr: Array<string> = [];
 
-
 	ngOnChanges(): void {
 		this.totalPage = Math.ceil(this.totalLength / this.pageSize);
 		this.arr = this.generatePagination(this.currentPage, this.totalPage);
+		this.currentPage = 1;
 	}
 
 

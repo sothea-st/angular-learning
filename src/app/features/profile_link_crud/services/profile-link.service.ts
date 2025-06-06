@@ -11,6 +11,10 @@ export class ProfileLinkService extends MainBaseService {
           super('profileLinks');
      }
 
+     importExcel(data: FormData,sheet: string, cell: string ): Observable<Success> {
+          return this.http.post<Success>(this.getBaseUrl+"/importProfileLinkExcels?sheet="+sheet+"&cell="+cell,data);
+     }
+
      reads(searchValue?: string): Observable<ProfileLinkModel> {
           return this.http.get<ProfileLinkModel>(this.getBaseUrl+this.getQuery(searchValue));
      }

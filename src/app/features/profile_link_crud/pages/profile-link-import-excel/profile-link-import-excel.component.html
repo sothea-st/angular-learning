@@ -1,0 +1,84 @@
+<section class="dark:bg-gray-900 p-5 sm:p-5">
+     <div class="mx-auto w-5/6 px-4 lg:px-12">
+          <div class="flex justify-start">
+               <div
+                    class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0 mb-3">
+                    <button type="button" class="flex px-4 py-2 text-sm font-medium 
+                              text-gray-900 focus:outline-none bg-white rounded-lg border 
+                              border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 
+                              focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 
+                              dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                         (click)="onBack()">
+                         <svg class="w-5 h-5 text-gray-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                              width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                   stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
+                         </svg>
+                         <span>Back</span>
+                    </button>
+               </div>
+          </div>
+
+
+          <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden p-5">
+               <form>
+                    <div class="flex justify-center w-full">
+                         <div class="w-full mr-3">
+                              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sheet</label>
+                              <input type="text" name="sheet" [(ngModel)]="sheet" #sheetRef="ngModel" [ngClass]="{
+                                   'border-red-500 focus:border-red-500 focus:ring-red-500': sheetRef.invalid && sheetRef.touched,
+                                   'border-gray-300': sheetRef.valid || !sheetRef.touched
+                                   }"
+                                   class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                   placeholder="Sheet..." required />
+                         </div>
+                         <div class="w-full">
+                              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cell</label>
+                              <input type="text" name="cell" [(ngModel)]="cell" #cellRef="ngModel" [ngClass]="{
+                                        'border-red-500 focus:border-red-500 focus:ring-red-500': cellRef.invalid && cellRef.touched,
+                                        'border-gray-300': cellRef.valid || !cellRef.touched
+                                   }"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                   placeholder="Cell..." required />
+                         </div>
+                    </div>
+                    <div class="mt-4">
+                         <label class="block mb-2 text-sm font-medium text-gray-900 ">Upload
+                              File Excel</label>
+                         <label for="file-upload"
+                              class="mt-2 w-full p-2 flex flex-col items-center justify-center border border-gray-300 rounded-[10px] bg-gray-50 cursor-pointer hover:bg-gray-100">
+                              <svg class="w-12 h-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                   viewBox="0 0 24 24" stroke="currentColor">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 5v9m-5 0H5a1 1 0 00-1 1v4a1 1 0 001 1h14a1 1 0 001-1v-4a1 1 0 00-1-1h-2M8 9l4-5 4 5m1 8h.01" />
+                              </svg>
+                              <span id="file-name" class="mt-2 text-sm text-gray-500">{{fileName}}</span>
+                              <input type="file" accept=".xlsx, .xls" (change)="onFileSelected($event)" class="hidden"
+                                   required id="file-upload" />
+                         </label>
+
+                    </div>
+               </form>
+
+               <button type="button"
+                         (click)="onSave()"
+                         [disabled]="isImporting"
+                         class="float-right mt-4 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-7 py-2.5 text-center
+                                   flex items-center justify-center transition duration-300 ease-in-out
+                                   bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300
+                                   disabled:bg-blue-500 disabled:cursor-not-allowed">
+
+                    <svg *ngIf="isImporting"
+                         class="animate-spin h-5 w-5 mr-2 text-white"
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                    <path class="opacity-75" fill="currentColor"
+                              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                    </svg>
+
+                    <span>{{ isImporting ? 'Processing...' : 'Save' }}</span>
+                    </button>
+
+          </div>
+     </div>
+</section>

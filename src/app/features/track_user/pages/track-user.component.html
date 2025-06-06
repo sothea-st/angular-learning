@@ -19,9 +19,9 @@
 
 		<!-- User Data Display -->
 		<div *ngIf="user && !loading" class="user-data">
-			<p class="post-count">📦 Total : {{ user.totalUrlPost }}</p>
+			<p class="post-count">📦 Total : {{ user.Total_Post }}</p>
 			<ul class="post-list">
-				<li *ngFor="let post of user.urlPost; index as i">
+				<li *ngFor="let post of user.Posts; index as i">
 					{{ i + 1 }}. 
 					<span>{{ post.account_name }}</span>
 

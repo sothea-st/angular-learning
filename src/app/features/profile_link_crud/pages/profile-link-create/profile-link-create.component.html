@@ -18,7 +18,7 @@
                     </button>
                </div>
           </div>
-
+         
           <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden p-5">
                <div class="flex justify-end">
                     <button type="button" (click)="onAddLink()" *ngIf="isCheck">
@@ -42,22 +42,21 @@
                                    [ngClass]="{
                                         'border-red-500 focus:border-red-500 focus:ring-red-500': profileLinkInput.invalid && profileLinkInput.touched,
                                         'border-gray-300': profileLinkInput.valid || !profileLinkInput.touched
-                                   }"
-                                   placeholder="www.facebook.com" required />
+                                   }" placeholder="www.facebook.com" required />
                               <div class="flex justify-end">
-                                   <span 
-                                        (click)="onRemoveLink(i)" 
-                                        *ngIf="profileLinkRequests.length > 1"
+                                   <span (click)="onRemoveLink(i)" *ngIf="profileLinkRequests.length > 1"
                                         class="italic text-red-600 hover:underline cursor-pointer">Remove</span>
                               </div>
                          </div>
                     </div>
-                 
+
                     <div class="flex justify-end mt-7">
-                         <button 
-                              (click)="onCreate()"
-                              [disabled]="!isLoading"
-                              type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+                         <button (click)="onImport()"  type="button" class="mr-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 
+                              focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
+                              text-sm w-full sm:w-auto px-7 py-2.5 text-center">
+                              Import Excel
+                         </button>
+                         <button (click)="onCreate()" [disabled]="!isLoading" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
                               focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
                               text-sm w-full sm:w-auto px-7 py-2.5 text-center">
                               Save

@@ -22,6 +22,7 @@ export class ProfileLinkCreateComponent implements OnInit {
 	id: number = 0;
 	isLoading: boolean = true;
 	isCheck: boolean = false;
+	isDialog: boolean = false;
 
 	constructor(
 		private router: Router,
@@ -76,4 +77,13 @@ export class ProfileLinkCreateComponent implements OnInit {
 	onBack(): void {
 		this.router.navigate(['profile-link-crud']);
 	}
+
+	onCloseModal(): void {
+		this.isDialog = !this.isDialog;
+	}
+
+	onImport(): void {
+		this.router.navigate(['profile-link-crud/profile-link-import-excel']);
+	}
+
 }
